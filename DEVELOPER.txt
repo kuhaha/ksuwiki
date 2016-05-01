@@ -1,0 +1,142 @@
+1. index.php
+
+// New for Ksuwiki
+define('CONF_DIR',	PKWK_HOME . 'conf/');
+
+2. lib/func.php
+  310: hex2bin => _hex2bin   redeclair!
+
+3. pukiwiki.ini.php
+
+// New for KsuWiki
+// Data related directories, wiki, cache, diff, counter,  
+define('DATA_DIR', PKWK_HOME . 'data/'   );
+define('SITE_DIR', DATA_DIR . 'sites/');  //For wiki sites
+// i18n files
+define('LANG_DIR', CONF_DIR . 'i18n/'   );
+define('PKWK_CONFIG_DB', CONF_DIR .'pukiwiki.sites.db');  //Sqlite database of site configuration
+
+4. lib/init.php
+
+357: if (! isset($vars['cmd']) && ! isset($vars['plugin'])&& ! isset($vars['site'])) {
+
+367:
+////////////////////////////////////////////////
+// Open site configuration database (sqlite)
+//
+if (isset($vars['site'])){
+	$id = $vars['site'];
+	try{
+		//open the configuration database
+		$db = new PDO('sqlite:' . PKWK_CONFIG_DB);
+		$sql = "SELECT * FROM pkwksite WHERE id= '{$id}'" ;
+		$result = $db->query($sql);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		foreach ($row as $key=>$value){
+			$vars['site_config'][$key] = $value;
+		}
+		define('SITE_SKIN_FILE', PKWK_HOME . SKIN_DIR . $row['skin']);
+	}
+	catch(PDOException $e){
+		$die = 'Exception : '.$e->getMessage();
+		die_message($die) ;
+	}
+}
+
+
+5. lib/html.php
+
+27:
+	if (file_exists(SITE_SKIN_FILE) && is_readable(SITE_SKIN_FILE)){
+		$skin = SITE_SKIN_FILE;
+	}elseif(file_exists(SKIN_FILE) && is_readable(SKIN_FILE)){
+		$skin = SKIN_FILE;
+	}else{
+		die_message('SKIN_FILE is not found');
+	}
+	.
+	.
+  	// require(SKIN_FILE);
+    require($skin);
+
+    
+6. lib/auth.php
+13:
+function site_login($site='', $pass=''){
+	global  $vars;
+	if (isset($vars['site'])){
+		$site = $vars['site'];
+	}
+	try{
+		//open the configuration database
+		$db = new PDO('sqlite:' . PKWK_CONFIG_DB);
+		$sql = "SELECT * FROM pkwksite WHERE pass=md5('{$pass}') and id='{$site}'" ;
+		$result = $db->query($sql);
+		if ($result->rowCount() >0 ) {
+			return TRUE;
+		}
+	}
+	catch(PDOException $e){
+		$die = 'Exception : ' . $e->getMessage();
+		die_message($die) ;
+	}
+
+	return FALSE;
+}
+/////////////////////////////////////////////////
+
+
+see also:
+
+RFC2396 Appendix A. Collected BNF for URI (抜粋)
+
+URI-reference = [ absoluteURI | relativeURI ] [ "#" fragment ]
+
+absoluteURI = scheme ":" ( hier_part | opaque_part )
+
+hier_part = ( net_path | abs_path ) [ "?" query ]
+
+query = *uric
+
+uric = reserved | unreserved | escaped
+
+reserved = ";" | "/" | "?" | ":" | "@" | "&" | "=" | "+" |"$" | ","
+
+unreserved = alphanum | mark
+
+mark = "-" | "_" | "." | "!" | "~" | "*" | "'" |"(" | ")"
+
+
+///////////////////////////////
+ldap auth by takeshi fujita
+
+1. lib/auth
+
+2. pukiwiki.ini.phpなどで定数LDAP_SERVER_NAMEとLDAP_BASE_DNを定義します。
+
+LDAP_SERVER_NAME
+    指定する値はディレクトリサーバのホスト名もしくはIPアドレスです。
+    define('LDAP_SERVER_NAME', 'ldap.example.ac.jp');
+    SSLと組み合わせて使用する場合は ldaps://ホスト名/ と記述します。
+    define('LDAP_SERVER_NAME', 'ldaps://ldap.example.ac.jp/');
+
+LDAP_BASE_DN
+    指定する値はベースDNです。
+    define('LDAP_BASE_DN', 'dc=ldap,dc=example,dc=ac,dc=jp');
+
+PKWK_AUTH_LDAP
+    ユーザー認証の方法を指定します。
+
+    define('PKWK_AUTH_LDAP', 1);
+
+    PKWK_AUTH_LDAPの値	認証方法
+    0	通常のユーザー認証のみ
+    1	LDAP認証のみ
+    2	通常のユーザー認証に失敗した場合、LDAP認証
+    3	通常のユーザー認証とLDAP認証の両方を使用
+
+
+
+
+
+
