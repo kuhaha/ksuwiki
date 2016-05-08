@@ -114,8 +114,7 @@ function _navigator($key, $value = '', $javascript = ''){
 	if (! PKWK_ALLOW_JAVASCRIPT) $javascript = '';
 
 	echo '<a href="' . $link[$key] . '" ' . $javascript . '>' .
-		(($value === '') ? $lang[$key] : $value) .
-		'</a>';
+		(($value === '') ? $lang[$key] : $value) . '</a>';
 
 	return TRUE;
 }

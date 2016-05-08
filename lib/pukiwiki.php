@@ -51,18 +51,18 @@ $root = url_to_absolute(PKWK_HOME);
 define('PKWKSITE_ROOT', $root);
 $matches = array();
 $patterns = array(
-        "#^".$root."!([^/!]+)/[^/]*$#",  //  /PKWK_ROOT/!<site>/xxx for admin
-        "#^".$root."([^/!]+)!/[^/]*$#",  //  /PKWK_ROOT/<site>!/xxx for admin
-        "#^".$root."([^/!]+)/[^/]*$#",  //  /PKWK_ROOT/<site>/xxx       for readonly
+  "#^".$root."!([^/!]+)/[^/]*$#",  //  /PKWK_ROOT/!<site>/xxx for admin
+  "#^".$root."([^/!]+)!/[^/]*$#",  //  /PKWK_ROOT/<site>!/xxx for admin
+  "#^".$root."([^/!]+)/[^/]*$#",  //  /PKWK_ROOT/<site>/xxx       for readonly
 );
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 foreach ($patterns as $pattern){
-        if (preg_match($pattern, $path, $matches))      {
-                if (!empty($matches[1])){
-                        $site = $matches[1];
-                }
-                break;
-        }
+  if (preg_match($pattern, $path, $matches))      {
+    if (!empty($matches[1])){
+      $site = $matches[1];
+    }
+    break;
+  }
 }
 
 ///////////////////////////////////////////
@@ -88,7 +88,6 @@ if (!isset($site)){
 ///////////////////////////////////////////////////////
 // Figure out site info,  cannot later than reading init.php
 //
-
 require(LIB_DIR . 'site.php');
 
 require(LIB_DIR . 'func.php');

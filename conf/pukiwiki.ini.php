@@ -101,7 +101,7 @@ define('IMAGE_DIR', WEBROOT_DIR . 'image/');
 
 define('PKWK_LANG_DIR', WEBROOT_DIR . 'i18n/'   );// i18n files
 
-define('PKWK_DATA_DIR', 'wiki-data/'   );
+define('PKWK_DATA_DIR', PKWK_HOME . 'wiki-data/'   );
 define('PKWK_DEFAULT_DIR', PKWK_DATA_DIR . 'default/'   );
 define('PKWK_SITE_DIR', PKWK_DATA_DIR . 'sites/');  //For wiki sites
 define('PKWK_CONFIG_DB', PKWK_SITE_DIR .'pukiwiki.sites.db');  //Sqlite database of site configuration

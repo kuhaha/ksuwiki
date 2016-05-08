@@ -43,14 +43,14 @@ Deny from all
 
 RewriteEngine On
 
-# <PKWK_ROOT>/!<SITE>/*** for site admin
+# <PKWK_ROOT>/!<SITE>/*** for site in edit mode
 RewriteRule ^!([^/!\?]+)/(.+)$ $2?admin=1&site=$1  [L,QSA]
 RewriteRule ^!([^/!\?]+)/$ index.php?admin=1&site=$1  [L,QSA]
 
-# <PKWK_ROOT>/<SITE>!/*** for site admin
+# <PKWK_ROOT>/<SITE>!/*** for site in edit mode
 RewriteRule ^([^/!\?]+)!/(.+)$ $2?admin=1&site=$1  [L,QSA]
 RewriteRule ^([^/!\?]+)!/$ index.php?admin=1&site=$1  [L,QSA]
 
-# /<PKWK_ROOT>/<SITE>/***  readonly
+# /<PKWK_ROOT>/<SITE>/*** for site in view mode
 RewriteRule ^([^/!\?]+)/(.+)$ $2?site=$1  [L,QSA]
 RewriteRule ^([^/!\?]+)/$ index.php?site=$1  [L,QSA]

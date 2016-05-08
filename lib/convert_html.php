@@ -649,7 +649,7 @@ class Table extends Element
 			}
 			$string .= $this->wrap($part_string, $part);
 		}
-		$string = $this->wrap($string, 'table', ' class="style_table" cellspacing="1" border="0"');
+		$string = $this->wrap($string, 'table', ' class="style_table table table-striped table-hover" cellspacing="1" border="0"');
 
 		return $this->wrap($string, 'div', ' class="ie5"');
 	}
@@ -713,7 +713,7 @@ class YTable extends Element
 		$rows = '';
 		foreach ($this->elements as $str)
 			$rows .= "\n" . '<tr class="style_tr">' . $str . '</tr>' . "\n";
-		$rows = $this->wrap($rows, 'table', ' class="style_table" cellspacing="1" border="0"');
+		$rows = $this->wrap($rows, 'table', ' class="style_table table table-striped table-hover" cellspacing="1" border="0"');
 		return $this->wrap($rows, 'div', ' class="ie5"');
 	}
 }
