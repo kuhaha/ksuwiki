@@ -56,7 +56,7 @@ window.addEventListener("load", function() {
 				});
 
 				wrap.addEventListener("mouseover", function(e){
-					this.style.border = "4px solid #74DF00";	
+					this.style.border = "2px solid #20B2AA";	
 					//this.style.margin = "1rem -5em";
 					this.lastChild.style.display = "";
 				});	
