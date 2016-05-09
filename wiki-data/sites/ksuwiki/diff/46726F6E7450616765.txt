@@ -5,15 +5,19 @@
  
  あなたのサイトに合わせ、自由に編集してください :) ((安易なSPAMやいたずらを防止するため、テーマや目的などの説明を加えた後、忘れずに凍結して下さい。パスワードの変更もお忘れなく!))
  
+ #snippet(php,sandbox){{
+ <?php
+   echo "hello, world!";
+ ?>
+ }}
  
  ** 練習ページ [#if72ced0]
  - [[SandBox]] -- 編集をお試しください
  - [[InterWikiSandBox]] -- [[InterWiki]]を試してみてください
  
- |~A|~B|~C|
--|A|B|C|danger
- |A|B|C|
-+|A|B|C|
+ |~Weekday|~1H(09:00~10:30)|~2H(10:40~12:10)|H
+ |Mon.|B|C|
+ |Tue.|B|C|
  
  ** PukiWikiについて [#c2af49f4]
  

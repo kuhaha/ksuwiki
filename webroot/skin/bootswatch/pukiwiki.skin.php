@@ -107,8 +107,11 @@ function _toolbar($key, $x = 20, $y = 20){
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootswatch: Spacelab</title>
+    <title><?php echo $title ?> - <?php echo $page_title ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php if ($nofollow || ! $is_read)  { ?> <meta name="robots" content="NOINDEX,NOFOLLOW" /><?php } ?>
+    <?php if (PKWK_ALLOW_JAVASCRIPT && isset($javascript)) { ?> <meta http-equiv="Content-Script-Type" content="text/javascript" /><?php } ?>
+
     <link rel="stylesheet" href="<?=SKIN_DIR .'bootswatch/' . $theme ?>/bootstrap.css" media="screen">
     <link rel="stylesheet" href="<?=SKIN_DIR ?>bootswatch/assets/css/bootswatch.min.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -116,6 +119,7 @@ function _toolbar($key, $x = 20, $y = 20){
       <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
       <script src="../bower_components/respond/dest/respond.min.js"></script>
     <![endif]-->
+    <?php echo $head_tag ?>
   </head>
   <body>
     <div class="navbar navbar-default navbar-fixed-top">
