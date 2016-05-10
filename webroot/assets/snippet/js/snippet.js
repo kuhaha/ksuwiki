@@ -62,7 +62,7 @@ window.addEventListener("load", function() {
 				});	
 				wrap.addEventListener("mouseout", function(e){
 					this.style.border = "";
-					this.style.margin = "";
+					//this.style.margin = "";
 					this.lastChild.style.display = "none";
 				});
 			}
